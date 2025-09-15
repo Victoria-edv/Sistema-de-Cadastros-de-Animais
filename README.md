@@ -1,8 +1,8 @@
-# Sistema de Cadastro e Gerenciamento de Pets 🚀
+# Sistema de Cadastro e Gerenciamento de Pets 🚀🐾
 
 Este projeto é um sistema de linha de comando (CLI) para gerenciar o cadastro e as informações de pets. Ele foi desenvolvido em Java como um desafio para aplicar e consolidar conceitos de Orientação a Objetos, manipulação de arquivos e lógica de programação.
 
-## Funcionalidades do Sistema
+## Funcionalidades do Sistema ✅
 
 O programa permite que o usuário interaja com um sistema completo de gerenciamento, incluindo:
 
@@ -14,7 +14,7 @@ O programa permite que o usuário interaja com um sistema completo de gerenciame
 * **Exclusão de Pets:** Permite deletar permanentemente o registro de um pet do sistema.
 * **Passo Extra - Gerenciamento de Formulário:** Adiciona uma funcionalidade extra para criar, alterar ou excluir perguntas do arquivo `formulario.txt`, tornando o sistema mais dinâmico.
 
-## Tecnologias e Conceitos Aplicados
+## Tecnologias e Conceitos Aplicados 💻
 
 * **Java 11+:** A base do desenvolvimento do projeto.
 * **Programação Orientada a Objetos (POO):** Utilização de classes (`Pet`, `PetSystem`), atributos privados e `enums` para modelar o domínio da aplicação de forma organizada.
@@ -23,7 +23,7 @@ O programa permite que o usuário interaja com um sistema completo de gerenciame
 * **Estruturas de Dados:** Utilização de `List` e `ArrayList` para armazenar e manipular dados na memória.
 * **API de Data e Hora:** Uso das classes `LocalDateTime` e `DateTimeFormatter` para gerar e formatar nomes de arquivos com base na data e hora.
 
-## Como Executar o Projeto
+## Como Executar o Projeto ▶️
 
 Para rodar o projeto em sua máquina local, siga os passos abaixo:
 
@@ -38,10 +38,10 @@ Para rodar o projeto em sua máquina local, siga os passos abaixo:
 3.  **Execute a classe `Main`:**
     Navegue até o arquivo `Main.java` e execute o método `main`. O programa será iniciado no terminal da sua IDE.
 
-### Estrutura do Projeto
+### Estrutura do Projeto  📁
 
 A estrutura de pastas e arquivos do projeto é a seguinte:
-
+```
 ├── .idea/
 ├── petsCadastrados/           # Pasta criada pelo programa para salvar os pets
 ├── src/
@@ -51,8 +51,9 @@ A estrutura de pastas e arquivos do projeto é a seguinte:
 │   ├── Pet.java               # Classe que modela o objeto Pet
 │   └── PetSystem.java         # Classe principal com toda a lógica de negócio
 └── README.md
+```
 
-## Autor
+## Autor 🧑‍💻
 
 **Victória Eduarda Bomfim Carvalho**
 
