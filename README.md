@@ -1,5 +1,3 @@
-# Desafio PROGRAMAÇÃO - Sistema de Cadastros 🚀
-
 # Sistema de Cadastro e Gerenciamento de Pets 🚀
 
 Este projeto é um sistema de linha de comando (CLI) para gerenciar o cadastro e as informações de pets. Ele foi desenvolvido em Java como um desafio para aplicar e consolidar conceitos de Orientação a Objetos, manipulação de arquivos e lógica de programação.
