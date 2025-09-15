@@ -57,5 +57,5 @@ A estrutura de pastas e arquivos do projeto é a seguinte:
 
 **Victória Eduarda Bomfim Carvalho**
 
-[![LinkedIn](https://www.linkedin.com/in/victoria-carvalho11/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/victoria-carvalho11/)
 [![GitHub](https://github.com/Victoria-edv)
