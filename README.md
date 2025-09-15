@@ -38,9 +38,10 @@ Para rodar o projeto em sua máquina local, siga os passos abaixo:
 3.  **Execute a classe `Main`:**
     Navegue até o arquivo `Main.java` e execute o método `main`. O programa será iniciado no terminal da sua IDE.
 
-## Estrutura do Projeto
+### Estrutura do Projeto
 
 A estrutura de pastas e arquivos do projeto é a seguinte:
+
 ├── .idea/
 ├── petsCadastrados/           # Pasta criada pelo programa para salvar os pets
 ├── src/
