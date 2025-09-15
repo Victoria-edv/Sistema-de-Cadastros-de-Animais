@@ -1,3 +1,24 @@
-.idea
-.code
-.vscode
+# Excluir arquivos de IDEs (IntelliJ, Eclipse, etc.)
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# Excluir diretórios de build e output
+/out/
+/target/
+bin/
+build/
+**/*.class
+
+# Excluir arquivos de cache e log
+*.log
+*.swp
+
+# Excluir arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Excluir diretórios criados pelo programa
+/petsCadastrados/
