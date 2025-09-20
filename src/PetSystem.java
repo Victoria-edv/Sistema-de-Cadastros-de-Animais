@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class PetSystem {
 
-    private final Scanner scanner;
+    private final Scanner sc;
 
     public PetSystem() {
-        this.scanner = new Scanner(System.in);
+        this.sc = new Scanner(System.in);
     }
 
     public void iniciar() {
@@ -39,8 +39,8 @@ public class PetSystem {
 
             try {
                 System.out.print("Escolha uma opção: ");
-                opcao = scanner.nextInt();
-                scanner.nextLine();
+                opcao = sc.nextInt();
+                sc.nextLine();
 
                 switch (opcao) {
                     case 1:
@@ -50,22 +50,21 @@ public class PetSystem {
                         exibirMenuFormulario();
                         break;
                     case 3:
-                        System.out.println("Saindo do sistema...");
+                        System.out.println("Saindo do sistema.");
                         break;
                     default:
                         System.out.println("Opção inválida.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Digite apenas números.");
-                scanner.nextLine();
+                sc.nextLine();
                 opcao = 0;
             }
         } while (opcao != 3);
-        scanner.close();
+        sc.close();
     }
 
     private void exibirMenuPet() {
-
         int opcao;
         do {
             System.out.println("==== MENU DE CADASTRO DE PETS ====");
@@ -78,8 +77,8 @@ public class PetSystem {
 
             try {
                 System.out.print("Escolha uma opção: ");
-                opcao = scanner.nextInt();
-                scanner.nextLine();
+                opcao = sc.nextInt();
+                sc.nextLine();
 
                 switch (opcao) {
                     case 1:
@@ -98,14 +97,14 @@ public class PetSystem {
                         buscarPet();
                         break;
                     case 6:
-                        System.out.println("Voltando ao menu principal...");
+                        System.out.println("Voltando ao menu principal.");
                         break;
                     default:
                         System.out.println("Opção inválida.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Digite apenas números.");
-                scanner.nextLine();
+                sc.nextLine();
                 opcao = 0;
             }
         } while (opcao != 6);
@@ -115,7 +114,7 @@ public class PetSystem {
         System.out.println("--- CADASTRO DE NOVO PET ---");
 
         System.out.print("1 - Qual o nome e sobrenome do pet?: ");
-        String nomePet = scanner.nextLine();
+        String nomePet = sc.nextLine();
         if (nomePet.trim().isEmpty()) {
             System.out.println("O nome do pet não pode ser vazio.");
             return;
@@ -124,7 +123,7 @@ public class PetSystem {
         Pet.Tipo tipoDoPet = null;
         while (tipoDoPet == null) {
             System.out.print("2 - Qual o tipo do pet (Cachorro/Gato)?: ");
-            String tipoString = scanner.nextLine();
+            String tipoString = sc.nextLine();
             try {
                 tipoDoPet = Pet.Tipo.valueOf(tipoString.trim().toUpperCase());
             } catch (IllegalArgumentException e) {
@@ -135,7 +134,7 @@ public class PetSystem {
         Pet.Sexo sexoPet = null;
         while (sexoPet == null) {
             System.out.print("3 - Qual o sexo do animal (Macho/Fêmea)?: ");
-            String sexoString = scanner.nextLine();
+            String sexoString = sc.nextLine();
             try {
                 sexoPet = Pet.Sexo.valueOf(sexoString.trim().toUpperCase());
             } catch (IllegalArgumentException e) {
@@ -146,24 +145,24 @@ public class PetSystem {
         String enderecoBairro;
         while (true) {
             System.out.print("4 - Qual o endereço e bairro que ele foi encontrado?: ");
-            enderecoBairro = scanner.nextLine();
+            enderecoBairro = sc.nextLine();
             if (!enderecoBairro.trim().isEmpty()) {
                 break;
             }
             System.out.println("O endereço do pet não pode ser vazio. Por favor, tente novamente.");
         }
 
-        int idadePet = 0;
+        int idadePet;
         while (true) {
             System.out.print("5 - Qual a idade aproximada do pet?(em anos): ");
-            String idadeString = scanner.nextLine();
+            String idadeString = sc.nextLine();
             try {
                 int idadeAnos = Integer.parseInt(idadeString);
                 if (idadeAnos > 20) {
                     System.out.println("A idade não pode ser maior que 20 anos. Por favor, tente novamente.");
                 } else if (idadeAnos < 1) {
                     System.out.print("Idade menor que 1 ano. Por favor, digite a idade (em meses): ");
-                    String mesesString = scanner.nextLine();
+                    String mesesString = sc.nextLine();
                     int meses = Integer.parseInt(mesesString);
                     idadePet = (int) Math.round((double) meses / 12);
                     break;
@@ -179,7 +178,7 @@ public class PetSystem {
         double pesoPet = 0.0;
         while (true) {
             System.out.print("6 - Qual o peso aproximado do pet?(em kg): ");
-            String pesoString = scanner.nextLine();
+            String pesoString = sc.nextLine();
             try {
                 double pesoAnimal = Double.parseDouble(pesoString);
                 if (pesoAnimal > 60) {
@@ -198,7 +197,7 @@ public class PetSystem {
         String racaPet = null;
         while (true) {
             System.out.print("7 - Qual a raça do pet?: ");
-            racaPet = scanner.nextLine();
+            racaPet = sc.nextLine();
             if (racaPet.trim().isEmpty()) {
                 System.out.println("A raça não pode ser vazia. Por favor, tente novamente.");
             } else if (racaPet.matches("[a-zA-Z\\s]+")) {
@@ -249,26 +248,28 @@ public class PetSystem {
     private void buscarPet() {
         System.out.println("\n--- BUSCA DE PET ---");
 
+        //Verifica se a pasta não existe ou se não é um diretório
         File pastaPets = new File("petsCadastrados");
         if (!pastaPets.exists() || !pastaPets.isDirectory()) {
             System.out.println("Nenhum pet cadastrado encontrado.");
             return;
         }
-
+        //Se a pasta existir, lista todos os arquivos e os armazena em um array
         File[] arquivosPets = pastaPets.listFiles();
         if (arquivosPets == null || arquivosPets.length == 0) {
             System.out.println("Nenhum pet cadastrado encontrado.");
             return;
         }
 
+        //Escolha do critério para busca
         System.out.println("Por qual critério você deseja buscar?");
         System.out.println("1 - Nome | 2 - Tipo | 3 - Sexo | 4 - Endereço | 5 - Idade | 6 - Peso | 7 - Raça");
         System.out.print("Escolha uma opção: ");
-        int criterio = scanner.nextInt();
-        scanner.nextLine();
+        int criterio = sc.nextInt();
+        sc.nextLine();
 
         System.out.print("Digite o termo de busca: ");
-        String termoBusca = scanner.nextLine();
+        String termoBusca = sc.nextLine();
 
         System.out.println("\n--- Resultados da Busca ---");
 
@@ -377,11 +378,11 @@ public class PetSystem {
         System.out.println("Por qual critério você deseja buscar?");
         System.out.println("1 - Nome | 2 - Tipo | 3 - Sexo | 4 - Endereço | 5 - Idade | 6 - Peso | 7 - Raça");
         System.out.print("Escolha uma opção: ");
-        int criterio = scanner.nextInt();
-        scanner.nextLine();
+        int criterio = sc.nextInt();
+        sc.nextLine();
 
         System.out.print("Digite o termo de busca: ");
-        String termoBusca = scanner.nextLine();
+        String termoBusca = sc.nextLine();
 
         List<File> resultados = new ArrayList<>();
 
@@ -430,7 +431,7 @@ public class PetSystem {
         return resultados;
     }
 
-    public void alterarPet() {
+    private void alterarPet() {
         List<File> resultados = encontrarPetsPorCriterio();
 
         if (resultados.isEmpty()) {
@@ -447,8 +448,8 @@ public class PetSystem {
 
         System.out.print("\nDigite o número do pet que deseja alterar: ");
         try {
-            int escolha = scanner.nextInt();
-            scanner.nextLine();
+            int escolha = sc.nextInt();
+            sc.nextLine();
 
             if (escolha > 0 && escolha <= resultados.size()) {
                 File arquivoParaAlterar = resultados.get(escolha - 1);
@@ -456,30 +457,29 @@ public class PetSystem {
 
                 System.out.println("\nAlterando dados de: " + petOriginal.getNomeCompleto());
 
-                // Coleta de novos dados, exceto tipo e sexo
-                // Os valores atuais são mostrados para referência
+                // Coleta de novos dados, exceto tipo e sexo. Os valores atuais são mostrados para referência do usuário
 
-                // 1. Nome e sobrenome
+                // 1 - Nome e sobrenome
                 System.out.print("Novo nome e sobrenome (atual: " + petOriginal.getNomeCompleto() + "): ");
-                String novoNome = scanner.nextLine();
+                String novoNome = sc.nextLine();
                 if (novoNome.trim().isEmpty()) {
                     System.out.println("Nome não pode ser vazio. Usando o nome original.");
                     novoNome = petOriginal.getNomeCompleto();
                 }
 
-                // 2. Endereço e bairro
+                // 2 - Endereço e bairro
                 System.out.print("Novo endereço e bairro (atual: " + petOriginal.getEnderecoBairro() + "): ");
-                String novoEnderecoBairro = scanner.nextLine();
+                String novoEnderecoBairro = sc.nextLine();
                 if (novoEnderecoBairro.trim().isEmpty()) {
                     System.out.println("Endereço não pode ser vazio. Usando o endereço original.");
                     novoEnderecoBairro = petOriginal.getEnderecoBairro();
                 }
 
-                // 3. Idade
+                // 3 - Idade
                 int novaIdade = 0;
                 while (true) {
                     System.out.print("Nova idade (atual: " + petOriginal.getIdade() + " anos): ");
-                    String idadeString = scanner.nextLine();
+                    String idadeString = sc.nextLine();
                     if (idadeString.trim().isEmpty()) {
                         novaIdade = petOriginal.getIdade();
                         System.out.println("Usando a idade original.");
@@ -497,11 +497,11 @@ public class PetSystem {
                     }
                 }
 
-                // 4. Peso
+                // 4 - Peso
                 double novoPeso = 0.0;
                 while (true) {
                     System.out.print("Novo peso (atual: " + petOriginal.getPeso() + " kg): ");
-                    String pesoString = scanner.nextLine();
+                    String pesoString = sc.nextLine();
                     if (pesoString.trim().isEmpty()) {
                         novoPeso = petOriginal.getPeso();
                         System.out.println("Usando o peso original.");
@@ -519,26 +519,26 @@ public class PetSystem {
                     }
                 }
 
-                // 5. Raça
+                // 5 - Raça
                 System.out.print("Nova raça (atual: " + petOriginal.getRaca() + "): ");
-                String novaRaca = scanner.nextLine();
+                String novaRaca = sc.nextLine();
                 if (novaRaca.trim().isEmpty()) {
                     System.out.println("Raça não pode ser vazia. Usando a raça original.");
                     novaRaca = petOriginal.getRaca();
                 }
 
-                // AQUI VOCÊ DELETA O ARQUIVO ANTIGO
+                // Deleta a versão antiga e desatualizada do arquivo
                 if (arquivoParaAlterar.delete()) {
-                    System.out.println("Arquivo antigo do pet deletado com sucesso.");
+                    System.out.println("Arquivo antigo do pet foi deletado com sucesso.");
                 } else {
                     System.out.println("Erro ao deletar o arquivo antigo.");
                     return;
                 }
 
-                // AQUI VOCÊ CRIA O NOVO OBJETO COM AS INFORMAÇÕES ATUALIZADAS
+                // Cria o novo objeto com as informações atualizadas
                 Pet petAtualizado = new Pet(novoNome, petOriginal.getTipo(), petOriginal.getSexo(), novoEnderecoBairro, novaIdade, novoPeso, novaRaca);
 
-                // AQUI VOCÊ SALVA O NOVO OBJETO EM UM NOVO ARQUIVO
+                // Salva o novo objeto em um novo arquivo
                 LocalDateTime agora = LocalDateTime.now();
                 DateTimeFormatter formatador = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
                 String dataFormatada = agora.format(formatador);
@@ -570,15 +570,14 @@ public class PetSystem {
             }
         } catch (InputMismatchException e) {
             System.out.println("Entrada inválida. Por favor, digite apenas números.");
-            scanner.nextLine();
+            sc.nextLine();
         }
     }
 
-    public void listarTodosPets() {
+    private void listarTodosPets() {
         System.out.println("\n--- LISTA DE TODOS OS PETS ---");
 
         File pastaPets = new File("petsCadastrados");
-
         if (!pastaPets.exists() || !pastaPets.isDirectory()) {
             System.out.println("Nenhum pet cadastrado encontrado.");
             return;
@@ -597,18 +596,17 @@ public class PetSystem {
         for (File arquivo : arquivosPets) {
             Pet pet = lerPetDoArquivo(arquivo);
             if (pet != null) {
-                exibirDetalhesDoPet(pet); // Reutiliza o método de exibição
+                exibirDetalhesDoPet(pet); // Reutiliza o metodo de exibição
                 totalPets++;
             }
         }
-
         if (totalPets == 0) {
             System.out.println("Nenhum pet encontrado.");
         }
     }
 
-    public void deletarPet() {
-        // Reutiliza o método de busca
+    private void deletarPet() {
+        // Reutiliza o metodo de busca
         List<File> resultados = encontrarPetsPorCriterio();
 
         if (resultados.isEmpty()) {
@@ -625,15 +623,15 @@ public class PetSystem {
 
         System.out.print("\nDigite o número do pet que deseja excluir: ");
         try {
-            int escolha = scanner.nextInt();
-            scanner.nextLine();
+            int escolha = sc.nextInt();
+            sc.nextLine();
 
             if (escolha > 0 && escolha <= resultados.size()) {
                 File arquivoParaDeletar = resultados.get(escolha - 1);
                 Pet petParaDeletar = lerPetDoArquivo(arquivoParaDeletar);
 
                 System.out.print("Tem certeza que deseja excluir " + petParaDeletar.getNomeCompleto() + "? (S/N): ");
-                String confirmacao = scanner.nextLine();
+                String confirmacao = sc.nextLine();
 
                 if (confirmacao.equalsIgnoreCase("s")) {
                     if (arquivoParaDeletar.delete()) {
@@ -649,7 +647,7 @@ public class PetSystem {
             }
         } catch (InputMismatchException e) {
             System.out.println("Entrada inválida. Por favor, digite apenas números.");
-            scanner.nextLine();
+            sc.nextLine();
         }
     }
 
@@ -664,8 +662,8 @@ public class PetSystem {
 
             try {
                 System.out.print("Escolha uma opção: ");
-                opcao = scanner.nextInt();
-                scanner.nextLine();
+                opcao = sc.nextInt();
+                sc.nextLine();
 
                 switch (opcao) {
                     case 1:
@@ -678,14 +676,14 @@ public class PetSystem {
                         excluirPergunta();
                         break;
                     case 4:
-                        System.out.println("Voltando...");
+                        System.out.println("Voltando ao menu principal");
                         break;
                     default:
                         System.out.println("Opção inválida.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Digite apenas números.");
-                scanner.nextLine();
+                sc.nextLine();
                 opcao = 0;
             }
         } while (opcao != 4);
@@ -696,7 +694,7 @@ public class PetSystem {
         List<String> perguntas = lerPerguntasDoArquivo();
 
         System.out.print("Digite a nova pergunta: ");
-        String novaPergunta = scanner.nextLine();
+        String novaPergunta = sc.nextLine();
 
         int novoNumero = perguntas.size() + 1;
         perguntas.add(novoNumero + " - " + novaPergunta);
@@ -704,27 +702,29 @@ public class PetSystem {
         reescreverArquivoFormulario(perguntas);
         System.out.println("Nova pergunta adicionada com sucesso!");
     }
+    private static final int NUMERO_DE_PERGUNTAS_FIXAS =7;
 
     private void alterarPergunta() {
-        System.out.println("\n--- Alterar Pergunta ---");
+
+        System.out.println("--- Alterar Pergunta ---");
         List<String> perguntas = lerPerguntasDoArquivo();
 
         for (String pergunta : perguntas) {
             System.out.println(pergunta);
         }
 
-        System.out.print("\nDigite o número da pergunta que deseja alterar (8 ou superior): ");
+        System.out.print("\nDigite o número da pergunta que deseja alterar (" + (NUMERO_DE_PERGUNTAS_FIXAS + 1) + " ou superior): ");
         try {
-            int numeroPergunta = scanner.nextInt();
-            scanner.nextLine();
+            int numeroPergunta = sc.nextInt();
+            sc.nextLine();
 
-            if (numeroPergunta < 8 || numeroPergunta > perguntas.size()) {
+            if (numeroPergunta <= NUMERO_DE_PERGUNTAS_FIXAS || numeroPergunta > perguntas.size()) {
                 System.out.println("Pergunta inválida. Somente perguntas adicionadas podem ser alteradas.");
                 return;
             }
 
             System.out.print("Digite o novo texto para a pergunta: ");
-            String novoTexto = scanner.nextLine();
+            String novoTexto = sc.nextLine();
 
             perguntas.set(numeroPergunta - 1, numeroPergunta + " - " + novoTexto);
 
@@ -733,7 +733,7 @@ public class PetSystem {
 
         } catch (InputMismatchException e) {
             System.out.println("Entrada inválida. Digite apenas números.");
-            scanner.nextLine();
+            sc.nextLine();
         }
     }
 
@@ -745,18 +745,19 @@ public class PetSystem {
             System.out.println(pergunta);
         }
 
-        System.out.print("\nDigite o número da pergunta que deseja excluir (8 ou superior): ");
+        System.out.print("\nDigite o número da pergunta que deseja excluir (" + (NUMERO_DE_PERGUNTAS_FIXAS + 1) + " " +
+                "ou superior): ");
         try {
-            int numeroPergunta = scanner.nextInt();
-            scanner.nextLine();
+            int numeroPergunta = sc.nextInt();
+            sc.nextLine();
 
-            if (numeroPergunta < 8 || numeroPergunta > perguntas.size()) {
+            if (numeroPergunta <= NUMERO_DE_PERGUNTAS_FIXAS || numeroPergunta > perguntas.size()) {
                 System.out.println("Pergunta inválida. Somente perguntas adicionadas podem ser excluídas.");
                 return;
             }
 
             System.out.print("Tem certeza que deseja excluir esta pergunta? (S/N): ");
-            String confirmacao = scanner.nextLine();
+            String confirmacao = sc.nextLine();
 
             if (confirmacao.equalsIgnoreCase("s")) {
                 perguntas.remove(numeroPergunta - 1);
@@ -764,7 +765,7 @@ public class PetSystem {
                 // Renumera as perguntas restantes
                 for (int i = numeroPergunta - 1; i < perguntas.size(); i++) {
                     String perguntaAtual = perguntas.get(i);
-                    // Pega o texto da pergunta e remove o número antigo
+                    // Pega o texto da pergunta e remover o número antigo
                     String textoSemNumero = perguntaAtual.substring(perguntaAtual.indexOf("-") + 1).trim();
                     perguntas.set(i, (i + 1) + " - " + textoSemNumero);
                 }
@@ -777,7 +778,7 @@ public class PetSystem {
 
         } catch (InputMismatchException e) {
             System.out.println("Entrada inválida. Digite apenas números.");
-            scanner.nextLine();
+            sc.nextLine();
         }
     }
 
@@ -794,6 +795,7 @@ public class PetSystem {
         }
         return perguntas;
     }
+
 
     // Metodo auxiliar para reescrever o arquivo com a lista atualizada
     private void reescreverArquivoFormulario(List<String> perguntas) {

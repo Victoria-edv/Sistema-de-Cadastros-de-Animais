@@ -1,0 +1,8 @@
+# Pasta de configuração do IntelliJ IDEA
+.idea/
+
+# Pasta com os dados gerados pelo programa
+petsCadastrados/
+
+# Pasta de compilação (arquivos .class)
+out/
