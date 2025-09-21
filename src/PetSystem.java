@@ -113,11 +113,14 @@ public class PetSystem {
     private void cadastrarNovoPet() {
         System.out.println("--- CADASTRO DE NOVO PET ---");
 
-        System.out.print("1 - Qual o nome e sobrenome do pet?: ");
-        String nomePet = sc.nextLine();
-        if (nomePet.trim().isEmpty()) {
-            System.out.println("O nome do pet não pode ser vazio.");
-            return;
+        String nomePet;
+        while (true) {
+            System.out.print("1 - Qual o nome e sobrenome do pet?: ");
+            nomePet = sc.nextLine();
+            if (!nomePet.trim().isEmpty()) {
+                break;
+            }
+            System.out.println("O nome do pet não pode ser vazio. Por favor, tente novamente.");
         }
 
         Pet.Tipo tipoDoPet = null;
@@ -702,7 +705,8 @@ public class PetSystem {
         reescreverArquivoFormulario(perguntas);
         System.out.println("Nova pergunta adicionada com sucesso!");
     }
-    private static final int NUMERO_DE_PERGUNTAS_FIXAS =7;
+
+    private static final int NUMERO_DE_PERGUNTAS_FIXAS = 7;
 
     private void alterarPergunta() {
 
