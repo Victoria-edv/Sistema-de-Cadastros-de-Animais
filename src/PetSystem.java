@@ -330,7 +330,7 @@ public class PetSystem {
     }
 
     private void exibirDetalhesDoPet(Pet pet) {
-        System.out.println("\n-----------------------------------------");
+        System.out.println("\n----------------------------------------");
         System.out.println("Nome: " + pet.getNomeCompleto());
         System.out.println("Tipo: " + pet.getTipo());
         System.out.println("Sexo: " + pet.getSexo());
@@ -338,7 +338,7 @@ public class PetSystem {
         System.out.println("Idade: " + pet.getIdade());
         System.out.println("Peso: " + pet.getPeso());
         System.out.println("Raça: " + pet.getRaca());
-        System.out.println("-----------------------------------------");
+        System.out.println("----------------------------------------");
     }
 
     private Pet lerPetDoArquivo(File arquivo) {
